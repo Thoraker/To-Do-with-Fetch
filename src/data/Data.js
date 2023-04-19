@@ -2,7 +2,7 @@ const data = [
 	{
 		id: 'f5103f72-0d1f-47dc-a3bb-e5e8858e2b8d',
 		task: 'Despertar',
-		completed: true,
+		completed: false,
 	},
 	{
 		id: '75ef99fc-a868-49a4-956f-b6a5265d938e',

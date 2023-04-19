@@ -4,11 +4,13 @@ import { useState } from 'react'
 export default function Tasks({ task, completed }) {
 	const [taskDone, setTaskDone] = useState(completed)
 
-	console.log({ task, completed })
-
 	return (
 		<li
-			className={taskDone ? 'text-decoration-line-through' : ''}
+			className={
+				taskDone
+					? 'text-decoration-line-through list-group-item'
+					: 'list-group-item'
+			}
 			onClick={() => setTaskDone(!taskDone)}
 		>
 			{task}

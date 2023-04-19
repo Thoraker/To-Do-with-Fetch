@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 
-export default function Input(props) {
+const Input = (props) => {
 	const [input, setInput] = useState('')
 
 	function handleChange(e) {
@@ -17,7 +17,7 @@ export default function Input(props) {
 	return (
 		<form onSubmit={handleSubmit}>
 			<input
-				className='border border-0'
+				className='border border-0 w-100'
 				type='text'
 				onKeyDown={(e) =>
 					e === 'Enter' || e === 'NumpadEnter' ? handleSubmit : ''
@@ -35,3 +35,5 @@ Input.propTypes = {
 	props: PropTypes.func,
 	onSubmit: PropTypes.func,
 }
+
+export default Input

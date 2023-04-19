@@ -4,17 +4,20 @@ import data from '../data/Data'
 import Tasks from './Tasks'
 import { useState } from 'react'
 import Input from './Input'
+import Counter from './Counter'
 
-export default function App() {
+const App = () => {
 	const [task, setTask] = useState(data)
+
+	const [taskLength, setTaskLength] = useState(3)
 
 	function getInput(inputData) {
 		if (inputData.trim() !== '') {
 			const newTask = { id: UUIDV4(), task: inputData, completed: false }
 			setTask(task.concat(newTask))
+			setTaskLength(task.concat(newTask).length)
 		} else alert('No debes ingresar tareas vacías')
 	}
-	console.log(task)
 
 	return (
 		<div className='container-fluid'>
@@ -33,8 +36,7 @@ export default function App() {
 						))}
 					</ul>
 					<div className='d-inline'>
-						<p>2 quehaceres pendientes </p>
-						<p>1 quehaceres completados </p>
+						<Counter props={taskLength} />
 					</div>
 				</div>
 				<div className='col-1'></div>
@@ -42,3 +44,5 @@ export default function App() {
 		</div>
 	)
 }
+
+export default App
