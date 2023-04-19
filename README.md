@@ -53,4 +53,3 @@ $ npm run lint
 # Créditos
 
 Proyecto realizado para 4Geeks Academy por Félix Antonio Pacheco Lobos.
-

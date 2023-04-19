@@ -1,6 +1,6 @@
 {
 	"useTabs": true,
 	"singleQuote": true,
-	"jsxSingleQuote": true,
-	"endOfLine": "crlf"
+	"semi": false,
+	"jsxSingleQuote": true
 }
