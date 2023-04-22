@@ -1,29 +1,23 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
 
-export default function Tasks({ task, completed }) {
-	const [taskDone, setTaskDone] = useState(completed)
+export default function Tasks({ listedTask }) {
+    const [completed, setCompleted] = useState(listedTask.done)
 
-	return (
-		<li
-			className={
-				taskDone
-					? 'text-decoration-line-through list-group-item'
-					: 'list-group-item'
-			}
-			onClick={() => setTaskDone(!taskDone)}
-		>
-			{task}
-			<button
-				type='button'
-				className='btn-close float-end'
-				aria-label='Close'
-			></button>
-		</li>
-	)
+    return (
+        <li className={completed ? 'd-flex list-group-item text-decoration-line-through' : 'd-flex list-group-item'} >
+            <p className='flex-fill m-0' onClick={e => setCompleted(!completed)}>
+                {listedTask.label}
+            </p>
+            <button
+                type='button'
+                className='btn-close float-end'
+                aria-label='Close'
+            ></button>
+        </li>
+    )
 }
 
 Tasks.propTypes = {
-	task: PropTypes.string,
-	completed: PropTypes.bool,
+    listedTask: PropTypes.object,
 }

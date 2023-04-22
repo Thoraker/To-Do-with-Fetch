@@ -1,0 +1,18 @@
+[
+	{
+		"label": "Despertar",
+		"done": false
+	},
+	{
+		"label": "Bañarse",
+		"done": false
+	},
+	{
+		"label": "Vestirse",
+		"done": false
+	},
+	{
+		"label": "Desayunar",
+		"done": false
+	}
+]
