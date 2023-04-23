@@ -1,63 +1,68 @@
 import './App.css'
-import PropTypes from 'prop-types'
 import Tasks from './Tasks'
 import { useEffect, useState } from 'react'
 import Input from './Input'
 import Counter from './Counter'
-import { updateData, getData } from './Fetch'
+import { updateData, getData } from './resources/Fetch'
 
-const App = ({ url }) => {
+const App = () => {
+    const userName = 'Thoraker'
+
     const [task, setTask] = useState([])
     const [taskLength, setTaskLength] = useState(task.length)
 
-    const fetchGet = () => {
-        getData(url)
-            .then(data => {
-                setTask(data)
-                setTaskLength(data.length)
-            })
-            .catch(err => console.log(err))
-    }
 
-    useEffect(fetchGet, [])
+    const fetchGet = () => {
+        getData(userName)
+            .then(newTaskList => {
+                setTask(newTaskList)
+                setTaskLength(newTaskList.length)
+            })
+    }
 
     function getInput(inputData) {
         if (inputData.trim() !== '') {
             const newTask = [{ 'label': inputData, 'done': false }]
             const newTaskList = task.concat(newTask)
             setTask(newTaskList)
-            updateData(url, newTaskList)
             setTaskLength(newTaskList.length)
-        } else alert('No debes ingresar tareas vacías')
+            updateData(newTaskList, userName)
+        } else alert('Debes escribir una tarea')
     }
+
+    const deleteTask = (deletedItem) => {
+        const newTaskList = task.toSpliced(deletedItem, 1)
+        setTask(newTaskList)
+        setTaskLength(newTaskList.length)
+        updateData(newTaskList, userName)
+    }
+
+    const deleteAllTask = () => {
+        const newTaskList = task.toSpliced(0, task.length)
+        setTask(newTaskList)
+        setTaskLength(newTaskList.length)
+        updateData(newTaskList, userName)
+    }
+
+
+    useEffect(fetchGet, [])
 
     return (
         <div className='container-fluid'>
-            <div className='row'>
-                <div className='col-1'></div>
-                <div className='col'>
-                    <h1 className='text-center'>Lista de Quehaceres</h1>
-                    <Input onSubmit={getInput} />
-                    <ul className='list-group'>
-                        {task.map((listedTask, index) => (
-                            <Tasks
-                                key={index}
-                                listedTask={listedTask}
-                            />
-                        ))}
-                    </ul>
-                    <div className='d-inline'>
-                        <Counter props={taskLength} />
-                    </div>
-                </div>
-                <div className='col-1'></div>
+            <div className='col m-5 card'>
+                <h1 className='text-center card-header'>Lista de Quehaceres</h1>
+                <Input onSubmit={getInput} />
+                <ul className='list-group'>
+                    <Tasks task={task} deleteTask={deleteTask} />
+                </ul>
+                <ul>
+                    <Counter props={taskLength} />
+                </ul>
+                <button type='button' className='btn btn-primary' onClick={deleteAllTask}>Eliminar toda la lista de tareas</button>
             </div>
         </div>
     )
 }
 
-App.propTypes = {
-    url: PropTypes.string,
-}
 
 export default App
